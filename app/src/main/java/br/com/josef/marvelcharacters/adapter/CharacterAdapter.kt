@@ -13,11 +13,11 @@ import br.com.josef.marvelcharacters.interfaces.OnClick
 import br.com.josef.marvelcharacters.model.dataclass.Result
 import com.bumptech.glide.Glide
 
-class RecyclerViewAdapter(
-    private var comicsList: MutableList<Result>,
+class CharacterAdapter(
+    private var characterList: MutableList<Result>,
     private val listener: OnClick,
     private val context: Context
-) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_view, parent, false)
@@ -25,35 +25,35 @@ class RecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val result = comicsList[position]
+        val result = characterList[position]
         holder.onBind(result)
-        holder.itemView.setOnClickListener { v: View? -> listener.click(result) }
+        holder.itemView.setOnClickListener { _: View? -> listener.click(result) }
     }
 
     override fun getItemCount(): Int {
-        return comicsList.size
+        return characterList.size
     }
 
-    fun atualizaLista(novaLista: MutableList<Result>) {
-        if (comicsList.isEmpty()) {
-            comicsList = novaLista
-        } else {
-            comicsList.addAll(novaLista)
-        }
-        notifyDataSetChanged()
-    }
+//    fun atualizaLista(novaLista: MutableList<Result>) {
+//        if (characterList.isEmpty()) {
+//            characterList = novaLista
+//        } else {
+//            characterList.addAll(novaLista)
+//        }
+//        notifyDataSetChanged()
+//    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageComic: ImageView
         private val txtTitulo: TextView
 
         fun onBind(result: Result) {
-            txtTitulo.text = result.title
+            txtTitulo.text = result.name
             val imagem = result.thumbnail.path + "/portrait_uncanny." + result.thumbnail.extension
             val uri = Uri.parse(imagem.replace("http:", "https:"))
             Glide.with(context)
                 .load(uri)
-                .dontTransform()
+                .fitCenter()
                 .into(imageComic)
         }
 
