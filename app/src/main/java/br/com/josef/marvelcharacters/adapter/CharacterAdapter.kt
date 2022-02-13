@@ -1,7 +1,6 @@
 package br.com.josef.marvelcharacters.adapter
 
 import android.content.Context
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.josef.marvelcharacters.R
 import br.com.josef.marvelcharacters.interfaces.OnClick
 import br.com.josef.marvelcharacters.model.dataclass.Result
+import br.com.josef.marvelcharacters.utils.urlForPortraitImages
 import com.bumptech.glide.Glide
 
 class CharacterAdapter(
@@ -49,10 +49,8 @@ class CharacterAdapter(
 
         fun onBind(result: Result) {
             txtTitulo.text = result.name
-            val imagem = result.thumbnail.path + "/portrait_uncanny." + result.thumbnail.extension
-            val uri = Uri.parse(imagem.replace("http:", "https:"))
             Glide.with(context)
-                .load(uri)
+                .load(urlForPortraitImages(result))
                 .fitCenter()
                 .into(imageComic)
         }

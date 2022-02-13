@@ -45,11 +45,16 @@ val PRIVATE_KEY: String
 
 fun isTablet(context: Context): Boolean {
     val i =
-       context.resources.displayMetrics.widthPixels * DisplayMetrics.DENSITY_DEFAULT / context.resources.displayMetrics.densityDpi
+        context.resources.displayMetrics.widthPixels * DisplayMetrics.DENSITY_DEFAULT / context.resources.displayMetrics.densityDpi
     return i >= 600
 }
 
-fun httpsUrlFormater(result: Result): Uri {
+fun urlForPortraitImages(result: Result): Uri {
     val imagem = result.thumbnail.path + "/portrait_uncanny." + result.thumbnail.extension
+    return Uri.parse(imagem.replace("http:", "https:"))
+}
+
+fun urlForBasetImages(result: Result): Uri {
+    val imagem = result.thumbnail.path + "." + result.thumbnail.extension
     return Uri.parse(imagem.replace("http:", "https:"))
 }

@@ -4,4 +4,6 @@
     <string name="lorem_ipsum">Mussum Ipsum, cacilds vidis litro abertis.Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis!</string>
     <string name="no_description">No description in Marvel Characters database.</string>
     <string name="image_of_the_chacarters">Image of the Chacarters</string>
+    <string name="comics">Comics</string>
+    <string name="series">Series</string>
 </resources>

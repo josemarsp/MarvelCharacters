@@ -11,11 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.josef.marvelcharacters.R
 import br.com.josef.marvelcharacters.interfaces.OnClick
 import br.com.josef.marvelcharacters.model.dataclass.Result
+import br.com.josef.marvelcharacters.utils.ExpandedImageHelper
+import br.com.josef.marvelcharacters.utils.urlForBasetImages
+import br.com.josef.marvelcharacters.utils.urlForPortraitImages
 import com.bumptech.glide.Glide
 
 class ComicsAdapter(
     private var comicsList: MutableList<Result>,
-    private val listener: OnClick,
+//    private val listener: OnClick,
     private val context: Context
 ) : RecyclerView.Adapter<ComicsAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,7 +30,8 @@ class ComicsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val result = comicsList[position]
         holder.onBind(result)
-        holder.itemView.setOnClickListener { v: View? -> listener.click(result) }
+        holder.itemView.setOnClickListener { ExpandedImageHelper
+            .uriImage(urlForBasetImages(result), context) }
     }
 
     override fun getItemCount(): Int {
@@ -49,10 +53,8 @@ class ComicsAdapter(
 
         fun onBind(result: Result) {
             txtTitulo.text = result.title
-            val imagem = result.thumbnail.path + "/portrait_uncanny." + result.thumbnail.extension
-            val uri = Uri.parse(imagem.replace("http:", "https:"))
             Glide.with(context)
-                .load(uri)
+                .load(urlForPortraitImages(result))
                 .dontTransform()
                 .into(imageComic)
         }

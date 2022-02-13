@@ -34,8 +34,6 @@ class MainActivity : AppCompatActivity(){
             .commit()
     }
 
-
-
     override fun onBackPressed() {
         if (supportFragmentManager.fragments.size == 1) {
             finish()
@@ -54,9 +52,5 @@ class MainActivity : AppCompatActivity(){
 
 
 
-//        viewModel.getListaComics().observe(this) { results ->
-//            comicsAdapter = ComicsAdapter(results, this, this)
-//            binding.recyclerView.adapter = comicsAdapter
-//            binding.recyclerView.layoutManager = GridLayoutManager(this, 3)
-//        }
+//
 }
