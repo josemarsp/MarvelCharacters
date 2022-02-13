@@ -1,7 +1,9 @@
 package br.com.josef.marvelcharacters.utils
 
 import android.content.Context
+import android.net.Uri
 import android.util.DisplayMetrics
+import br.com.josef.marvelcharacters.model.dataclass.Result
 import okhttp3.internal.and
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -45,4 +47,9 @@ fun isTablet(context: Context): Boolean {
     val i =
        context.resources.displayMetrics.widthPixels * DisplayMetrics.DENSITY_DEFAULT / context.resources.displayMetrics.densityDpi
     return i >= 600
+}
+
+fun httpsUrlFormater(result: Result): Uri {
+    val imagem = result.thumbnail.path + "/portrait_uncanny." + result.thumbnail.extension
+    return Uri.parse(imagem.replace("http:", "https:"))
 }

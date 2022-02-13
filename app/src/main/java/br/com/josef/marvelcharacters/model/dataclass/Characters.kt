@@ -1,13 +1,15 @@
 package br.com.josef.marvelcharacters.model.dataclass
 
-import com.google.gson.annotations.Expose
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Characters(
-    @Expose private val available : Long,
-    @Expose private val collectionURI: String,
-    @Expose private val items: List<Item>,
-    @Expose private val returned: Long? = null
-)
+    private val available : Long,
+    private val collectionURI: String,
+    private val items: List<Item>,
+    private val returned: Long? = null
+):Parcelable
 
 
 

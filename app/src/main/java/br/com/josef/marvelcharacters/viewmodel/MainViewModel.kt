@@ -13,7 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ComicsViewModel() : ViewModel() {
+class MainViewModel() : ViewModel() {
     private val repository = ComicsRepository()
     private val listaComics = MutableLiveData<MutableList<Result>>()
     private val listaPersonagens = MutableLiveData<MutableList<Result>>()
@@ -68,14 +68,5 @@ class ComicsViewModel() : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         disposable.clear()
-    }
-
-    companion object {
-        // Parâmetros necessários para requisição da API MARVEL
-        // Chave pública que será usada como como parâmetro
-
-        // Chave privada que será usada como como parâmetro
-
-
     }
 }

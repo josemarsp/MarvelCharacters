@@ -1,14 +1,18 @@
 package br.com.josef.marvelcharacters.model.dataclass
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Result(
 
     val characters: Characters,
 
-    val collectedIssues: List<Any>,
+//    val collectedIssues: List<Any>,
 
-    val collections: List<Any>,
+//    val collections: List<Any>,
 
-    val creators: Creators,
+//    val creators: Creators,
 
     val dates: List<Date>,
 
@@ -20,7 +24,7 @@ data class Result(
 
     val ean: String,
 
-    val events: Events,
+//    val events: Events,
 
     val format: String,
 
@@ -38,15 +42,15 @@ data class Result(
 
     val pageCount: Long,
 
-    val prices: List<Price>,
+//    val prices: List<Price>,
 
     val resourceURI: String,
 
-    val series: Series,
+//    val series: Series,
 
-    val stories: Stories,
+//    val stories: Stories,
 
-    val textObjects: List<TextObject>,
+//    val textObjects: List<TextObject>,
 
     val thumbnail: Thumbnail,
 
@@ -54,11 +58,11 @@ data class Result(
 
     val upc: String,
 
-    val urls: List<Url>,
+//    val urls: List<Url>,
 
     val variantDescription: String,
 
-    val variants: List<Any>,
+//    val variants: List<Any>,
 
     val name: String
-)
+): Parcelable
