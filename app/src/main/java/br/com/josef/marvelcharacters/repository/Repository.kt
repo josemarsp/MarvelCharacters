@@ -19,9 +19,9 @@ class Repository {
     }
 
     fun getCharacters(
-        orderBy: String, ts: String, hash: String, apikey: String
+        orderBy: String, limit: Int, offset: Int,ts: String, hash: String, apikey: String
     ): Observable<BaseRequest> {
-        return RetrofitService.apiService.getCharacters(orderBy, ts, hash, apikey)
+        return RetrofitService.apiService.getCharacters(orderBy, limit, offset, ts,  hash, apikey)
     }
 
     fun getComicsCharacters(

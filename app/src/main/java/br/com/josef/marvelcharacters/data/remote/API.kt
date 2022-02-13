@@ -21,6 +21,8 @@ interface API {
     @GET("characters?")
     fun getCharacters(
         @Query("orderBy") orderBy: String,
+        @Query("limit") limit: Int,
+        @Query("offset") offset: Int,
         @Query("ts") ts: String,
         @Query("hash") hash: String,
         @Query("apikey") apikey: String

@@ -34,14 +34,14 @@ class CharacterAdapter(
         return characterList.size
     }
 
-//    fun atualizaLista(novaLista: MutableList<Result>) {
-//        if (characterList.isEmpty()) {
-//            characterList = novaLista
-//        } else {
-//            characterList.addAll(novaLista)
-//        }
-//        notifyDataSetChanged()
-//    }
+    fun updateList(novaLista: MutableList<Result>) {
+        if (characterList.isEmpty()) {
+            characterList = novaLista
+        } else {
+            characterList.addAll(novaLista)
+        }
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageComic: ImageView

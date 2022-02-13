@@ -101,18 +101,16 @@ class MainViewModel : ViewModel() {
     }
 
 
-    val allCharacters: Unit
-        get() {
-
-            disposable.add(
-                repository.getCharacters("name", timestamp, hash, PUBLIC_KEY)
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSubscribe { loading.setValue(true) }
-                    .doOnTerminate { loading.setValue(false) }
-                    .subscribe(
-                        { data: BaseRequest -> _listaPersonagens.setValue(data.data.results.toMutableList()) }
-                    ) { throwable: Throwable -> Log.i("LOG", "GetAllComics" + throwable.message) }
+    fun allCharacters( offset: Int, limit: Int) {
+        disposable.add(
+            repository.getCharacters("name", limit, offset, timestamp, hash, PUBLIC_KEY)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { loading.setValue(true) }
+                .doOnTerminate { loading.setValue(false) }
+                .subscribe(
+                    { data: BaseRequest -> _listaPersonagens.setValue(data.data.results.toMutableList()) }
+                ) { throwable: Throwable -> Log.i("LOG", "GetAllComics" + throwable.message) }
             )
         }
 

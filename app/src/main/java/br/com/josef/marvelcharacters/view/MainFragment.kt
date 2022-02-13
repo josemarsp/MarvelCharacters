@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import br.com.josef.marvelcharacters.R
 import br.com.josef.marvelcharacters.adapter.CharacterAdapter
 import br.com.josef.marvelcharacters.databinding.FragmentMainBinding
@@ -18,9 +20,10 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 private lateinit var binding: FragmentMainBinding
 private lateinit var adapter: CharacterAdapter
 private lateinit var viewModel: MainViewModel
+private var itemsSearches = 0
+private val searchLimit = 20
 
-
-class MainFragment() : Fragment(), OnClick {
+class MainFragment : Fragment(), OnClick {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,22 +41,32 @@ class MainFragment() : Fragment(), OnClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.allCharacters
+        setAdapter()
+        setScrollPagingItems()
 
-        viewModel.getLoading().observe(this) { loading ->
-            if (loading) {
-                binding.progressBar.visibility = View.VISIBLE
-            } else {
-                binding.progressBar.visibility = View.GONE
+        viewModel.allCharacters(0, searchLimit)
+
+        with(viewModel) {
+            getLoading().observe(viewLifecycleOwner) { loading ->
+                if (loading) {
+                    binding.progressBar.visibility = View.VISIBLE
+                } else {
+                    binding.progressBar.visibility = View.GONE
+                }
+            }
+
+            listaPersonagens.observe(viewLifecycleOwner) { result ->
+                adapter.updateList(result)
             }
         }
 
-        viewModel.listaPersonagens.observe(this) {
-            adapter = CharacterAdapter(it, this, requireActivity())
-            binding.recyclerView.adapter = adapter
-            val columns = if (isTablet(requireActivity())) 3 else 2
-            binding.recyclerView.layoutManager = GridLayoutManager(requireActivity(), columns)
-        }
+    }
+
+    private fun setAdapter() {
+        adapter = CharacterAdapter(arrayListOf(), this, requireActivity())
+        binding.recyclerView.adapter = adapter
+        val columns = if (isTablet(requireActivity())) 3 else 2
+        binding.recyclerView.layoutManager = GridLayoutManager(requireActivity(), columns)
     }
 
     override fun click(result: Result?) {
@@ -63,7 +76,8 @@ class MainFragment() : Fragment(), OnClick {
         requireActivity().supportFragmentManager.beginTransaction()
             .add(
                 R.id.fc_fragment,
-                DetailsFragment::class.java, bundle)
+                DetailsFragment::class.java, bundle
+            )
             .addToBackStack(null)
             .commit()
 
@@ -75,4 +89,30 @@ class MainFragment() : Fragment(), OnClick {
 //        transaction?.addToBackStack(null)
 //        transaction?.commit()
     }
+
+    private fun setScrollPagingItems() {
+
+        binding.recyclerView.addOnScrollListener(object : OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+
+                val layoutManager: GridLayoutManager =
+                    recyclerView.layoutManager as GridLayoutManager
+                val totalItemCount = layoutManager.itemCount
+                val lastVisible = layoutManager.findLastVisibleItemPosition()
+
+                val ultimoItem = lastVisible + 6 >= itemsSearches
+
+                if (totalItemCount > 0 && ultimoItem) {
+                    val lastSearch = itemsSearches
+                    itemsSearches += searchLimit
+                    viewModel.allCharacters(offset = itemsSearches, limit = searchLimit)
+//                    )
+                }
+            }
+        })
+    }
+
 }
