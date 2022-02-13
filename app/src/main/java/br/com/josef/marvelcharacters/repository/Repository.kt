@@ -28,19 +28,26 @@ class Repository {
         id: Int,
         format: String,
         orderBy: String,
+        limit: String,
         ts: String,
         hash: String,
         apikey: String
     ): Observable<BaseRequest> {
         return RetrofitService.apiService
-            .getComicsCharacters(id, format, orderBy, ts, hash, apikey)
+            .getComicsCharacters(id, format, orderBy, limit, ts, hash, apikey)
     }
 
+    fun getSeriesCharacters(
+        id: Int,
+        contains: String,
+        orderBy: String,
+        limit: String,
+        ts: String,
+        hash: String,
+        apikey: String
+    ): Observable<BaseRequest> {
+        return RetrofitService.apiService
+            .getSeriesCharacters(id, contains, orderBy, limit, ts, hash, apikey)
+    }
 
-//    @Path("id") id: Int,
-//    @Query("format") format: String,
-//    @Query("orderBy") orderBy: String,
-//    @Query("ts") ts: String,
-//    @Query("hash") hash: String,
-//    @Query("apikey") apikey: String
 }

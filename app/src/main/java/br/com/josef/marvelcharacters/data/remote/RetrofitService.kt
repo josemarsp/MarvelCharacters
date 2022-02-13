@@ -1,6 +1,7 @@
 package br.com.josef.marvelcharacters.data.remote
 
-import androidx.viewbinding.BuildConfig
+
+import br.com.josef.marvelcharacters.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

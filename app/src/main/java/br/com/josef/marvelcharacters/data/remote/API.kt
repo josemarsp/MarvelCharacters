@@ -31,6 +31,18 @@ interface API {
         @Path("id") id: Int,
         @Query("format") format: String,
         @Query("orderBy") orderBy: String,
+        @Query("limit") limit: String,
+        @Query("ts") ts: String,
+        @Query("hash") hash: String,
+        @Query("apikey") apikey: String
+    ): Observable<BaseRequest>
+
+    @GET("characters/{id}/series?")
+    fun getSeriesCharacters(
+        @Path("id") id: Int,
+        @Query("contains") contains: String,
+        @Query("orderBy") orderBy: String,
+        @Query("limit") limit: String,
         @Query("ts") ts: String,
         @Query("hash") hash: String,
         @Query("apikey") apikey: String

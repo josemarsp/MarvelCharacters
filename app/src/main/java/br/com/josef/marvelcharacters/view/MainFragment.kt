@@ -17,7 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 private lateinit var binding: FragmentMainBinding
 private lateinit var adapter: CharacterAdapter
-private var viewModel: MainViewModel? = null
+private lateinit var viewModel: MainViewModel
 
 
 class MainFragment() : Fragment(), OnClick {
@@ -38,9 +38,9 @@ class MainFragment() : Fragment(), OnClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel?.allCharacters
+        viewModel.allCharacters
 
-        viewModel?.getLoading()?.observe(this) { loading ->
+        viewModel.getLoading().observe(this) { loading ->
             if (loading) {
                 binding.progressBar.visibility = View.VISIBLE
             } else {
@@ -48,15 +48,12 @@ class MainFragment() : Fragment(), OnClick {
             }
         }
 
-        viewModel?.getListaPersonagens()?.observe(this) {
+        viewModel.listaPersonagens.observe(this) {
             adapter = CharacterAdapter(it, this, requireActivity())
             binding.recyclerView.adapter = adapter
             val columns = if (isTablet(requireActivity())) 3 else 2
             binding.recyclerView.layoutManager = GridLayoutManager(requireActivity(), columns)
         }
-
-
-
     }
 
     override fun click(result: Result?) {
