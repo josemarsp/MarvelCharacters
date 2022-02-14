@@ -4,7 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/drawable/ic_back.xml" value="0.191" />
+        <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/drawable/ic_baseline_star_48.xml" value="0.14" />
+        <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/drawable/ic_baseline_star_border_24.xml" value="0.14" />
+        <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/drawable/ic_baseline_star_border_48.xml" value="0.14" />
+        <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/drawable/ic_favorite_black_48dp.xml" value="0.14" />
         <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/drawable/ic_launcher_background.xml" value="0.313" />
+        <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/drawable/ic_search_48dp.xml" value="0.14" />
         <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/layout/activity_detalhe.xml" value="0.22" />
         <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/layout/activity_detalhe_comic.xml" value="0.171875" />
         <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/layout/activity_frame_layout.xml" value="0.2" />
@@ -12,8 +17,10 @@
         <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/layout/activity_splash.xml" value="0.171875" />
         <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/layout/dialog_show_image_zoom.xml" value="0.18896964514749892" />
         <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/layout/fragment_details.xml" value="0.25" />
+        <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/layout/fragment_favorites.xml" value="0.2877297990594271" />
         <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/layout/fragment_main.xml" value="0.18640444634459172" />
-        <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/layout/item_recycler_view.xml" value="0.25" />
+        <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/layout/item_recycler_view.xml" value="0.4419047619047619" />
+        <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/layout/item_selectable.xml" value="0.16246259085079093" />
         <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/layout/layout_alert_dialog_show_image_zoom.xml" value="0.2877297990594271" />
         <entry key="..\:/Android/Exemplos/MarvelCharacters/app/src/main/res/menu/menu.xml" value="0.22" />
       </map>

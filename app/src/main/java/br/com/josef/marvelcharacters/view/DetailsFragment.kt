@@ -1,5 +1,6 @@
 package br.com.josef.marvelcharacters.view
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,8 +17,8 @@ import br.com.josef.marvelcharacters.utils.urlForBasetImages
 import br.com.josef.marvelcharacters.view.MainFragment.Companion.KEY
 import br.com.josef.marvelcharacters.viewmodel.MainViewModel
 import com.bumptech.glide.Glide
-import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 class DetailsFragment : Fragment() {
     private val viewModel: MainViewModel by viewModel()
     private lateinit var binding: FragmentDetailsBinding
@@ -40,28 +41,22 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val result = requireArguments().getParcelable<MarvelResult>(KEY)!!
         val uri = urlForBasetImages(result)
+        initViews(uri, result)
+        viewModel.allSeriesCharacter(result.id)
+        viewModel.allComicsCharacter(result.id)
 
-        (activity as MainActivity?)?.renameMenu(result.name!!) //Name on Top
-
-        if (!result.description.isNullOrEmpty()) binding.tvComicDescription.text = result.description
-
-        Glide.with(requireContext())
-            .load(uri)
-            .dontTransform()
-            .placeholder(R.drawable.portrait_uncanny)
-            .into(binding.ivCharacterImage)
+        binding.ivStar.setOnClickListener {
+            viewModel.saveFavorite(result)
+            binding.ivStar.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_star_48))
+        }
 
         binding.ivCharacterImage.setOnClickListener {
             ExpandedImageHelper.uriImage(uri, requireContext())
         }
 
-        viewModel.allSeriesCharacter(result.id)
-        viewModel.allComicsCharacter(result.id)
-
-        with(viewModel){
+        with(viewModel) {
             listaComics.observe(viewLifecycleOwner) { results ->
                 if (results.count() > 0) {
                     binding.tvComicsTitle.visibility = View.VISIBLE
@@ -91,6 +86,21 @@ class DetailsFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun initViews(uri: Uri, result: MarvelResult) {
+        if (!result.description.isNullOrEmpty()) binding.tvComicDescription.text =
+            result.description
+
+        (activity as MainActivity?)?.renameMenu(result.name!!) //Name on Top
+
+        Glide.with(requireContext())
+            .load(uri)
+            .dontTransform()
+            .placeholder(R.drawable.portrait_uncanny)
+            .into(binding.ivCharacterImage)
+
+
     }
 
     override fun onDetach() {

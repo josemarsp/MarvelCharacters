@@ -23,6 +23,15 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@drawable/big_character" />
 
+        <ImageView
+            android:id="@+id/iv_star"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_baseline_star_border_48"
+            app:layout_constraintBottom_toTopOf="@+id/gl_details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_details"
             android:layout_width="wrap_content"

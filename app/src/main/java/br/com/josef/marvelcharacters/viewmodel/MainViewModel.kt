@@ -16,7 +16,6 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
-//    private val repository = Repository()
     private val _listaComics = MutableLiveData<MutableList<MarvelResult>>()
     private val _listaPersonagens = MutableLiveData<MutableList<MarvelResult>>()
     private val _listaSeries = MutableLiveData<MutableList<MarvelResult>>()
@@ -46,35 +45,15 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         return loading
     }
 
-    val _favoriteCharacters: LiveData<MutableList<MarvelResult>> = repository.favoriteCharacters
     val favoriteCharacters: LiveData<MutableList<MarvelResult>>
-        get() = _favoriteCharacters
+        get() = repository.favoriteCharacters
 
     fun saveFavorite(favorite: MarvelResult){
         viewModelScope.launch {
             repository.insertFavorite(favorite)
         }
     }
-//    fun save(newPassword: String) {
-//        viewModelScope.launch {
-//            passwordRepository.save(newPassword)
-//        }
-//    }
-//
 
-//    val allComics: Unit
-//        get() {
-//            disposable.add(
-//                repository.getComics("magazine", "comics", true, "focDate", timestamp, hash, PUBLIC_KEY)
-//                    .subscribeOn(Schedulers.newThread())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .doOnSubscribe { loading.setValue(true) }
-//                    .doOnTerminate { loading.setValue(false) }
-//                    .subscribe(
-//                        { data: BaseRequest -> listaComics.setValue(data.data.results.toMutableList()) }
-//                    ) { throwable: Throwable -> Log.i("LOG", "GetAllComics" + throwable.message) }!!
-//            )
-//        }
 
     fun allComicsCharacter(id: Int) {
         disposable.add(
