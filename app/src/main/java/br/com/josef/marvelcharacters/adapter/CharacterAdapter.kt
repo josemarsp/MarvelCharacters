@@ -27,7 +27,7 @@ class CharacterAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val result = characterList[position]
         holder.onBind(result)
-        holder.itemView.setOnClickListener { _: View? -> listener.click(result) }
+        holder.itemView.setOnClickListener { listener.click(result) }
     }
 
     override fun getItemCount(): Int {

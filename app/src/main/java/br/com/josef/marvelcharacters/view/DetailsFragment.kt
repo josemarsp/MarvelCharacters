@@ -1,6 +1,7 @@
 package br.com.josef.marvelcharacters.view
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +35,9 @@ class DetailsFragment() : Fragment() {
             container,
             false
         )
+
         viewModel = getViewModel()
+
         return binding.root
     }
 
@@ -44,7 +47,8 @@ class DetailsFragment() : Fragment() {
         val result = requireArguments().getParcelable<Result>("result")!!
         val uri = urlForBasetImages(result)
 
-        binding.tvTitleName.text = result.name
+        (activity as MainActivity?)?.renameMenu(result.name)
+
         if (result.description.isNotEmpty()) binding.tvComicDescription.text = result.description
         Glide.with(requireContext())
             .load(uri)
@@ -88,16 +92,11 @@ class DetailsFragment() : Fragment() {
                         )
                 }
             }
-
-
         }
-
-
     }
-//    companion object {
-//        fun newInstance(bundle: Bundle?) = DetailsFragment().apply {
-//            arguments = Bundle().apply {
-//            }
-//        }
-//    }
+
+    override fun onDetach() {
+        super.onDetach()
+        (activity as MainActivity?)?.renameMenu("MarvelApp")
+    }
 }

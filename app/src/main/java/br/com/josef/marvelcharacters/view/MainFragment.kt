@@ -1,5 +1,6 @@
 package br.com.josef.marvelcharacters.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,14 +36,17 @@ class MainFragment : Fragment(), OnClick {
             false
         )
         viewModel = getViewModel()
+
         return binding.root
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setAdapter()
-        setScrollPagingItems()
+        setScrollPagingImages()
 
         viewModel.allCharacters(0, searchLimit)
 
@@ -80,17 +84,9 @@ class MainFragment : Fragment(), OnClick {
             )
             .addToBackStack(null)
             .commit()
-
-//        val transaction = activity?.supportFragmentManager?.beginTransaction()
-//        transaction?.add(
-//            R.id.fl_forgot,
-//            RecoveryPasswordCodeFragment.newInstance(bundle)
-//        )
-//        transaction?.addToBackStack(null)
-//        transaction?.commit()
     }
 
-    private fun setScrollPagingItems() {
+    private fun setScrollPagingImages() {
 
         binding.recyclerView.addOnScrollListener(object : OnScrollListener() {
 
@@ -106,10 +102,8 @@ class MainFragment : Fragment(), OnClick {
                 val ultimoItem = lastVisible + 6 >= itemsSearches
 
                 if (totalItemCount > 0 && ultimoItem) {
-                    val lastSearch = itemsSearches
                     itemsSearches += searchLimit
                     viewModel.allCharacters(offset = itemsSearches, limit = searchLimit)
-//                    )
                 }
             }
         })
