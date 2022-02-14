@@ -9,12 +9,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.josef.marvelcharacters.R
 import br.com.josef.marvelcharacters.interfaces.OnClick
-import br.com.josef.marvelcharacters.model.dataclass.Result
+import br.com.josef.marvelcharacters.model.dataclass.MarvelResult
 import br.com.josef.marvelcharacters.utils.urlForPortraitImages
 import com.bumptech.glide.Glide
 
 class CharacterAdapter(
-    private var characterList: MutableList<Result>,
+    private var characterList: MutableList<MarvelResult>,
     private val listener: OnClick,
     private val context: Context
 ) : RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
@@ -34,7 +34,7 @@ class CharacterAdapter(
         return characterList.size
     }
 
-    fun updateList(novaLista: MutableList<Result>) {
+    fun updateList(novaLista: MutableList<MarvelResult>) {
         if (characterList.isEmpty()) {
             characterList = novaLista
         } else {
@@ -47,10 +47,10 @@ class CharacterAdapter(
         private val imageComic: ImageView
         private val txtTitulo: TextView
 
-        fun onBind(result: Result) {
-            txtTitulo.text = result.name
+        fun onBind(marvelResult: MarvelResult) {
+            txtTitulo.text = marvelResult.name
             Glide.with(context)
-                .load(urlForPortraitImages(result))
+                .load(urlForPortraitImages(marvelResult))
                 .fitCenter()
                 .into(imageComic)
         }

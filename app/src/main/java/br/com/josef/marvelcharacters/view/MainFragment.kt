@@ -1,8 +1,8 @@
 package br.com.josef.marvelcharacters.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -12,19 +12,28 @@ import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import br.com.josef.marvelcharacters.R
 import br.com.josef.marvelcharacters.adapter.CharacterAdapter
 import br.com.josef.marvelcharacters.databinding.FragmentMainBinding
+import br.com.josef.marvelcharacters.di.daoModule
 import br.com.josef.marvelcharacters.interfaces.OnClick
-import br.com.josef.marvelcharacters.model.dataclass.Result
+import br.com.josef.marvelcharacters.model.dataclass.MarvelResult
+import br.com.josef.marvelcharacters.repository.Repository
 import br.com.josef.marvelcharacters.utils.isTablet
 import br.com.josef.marvelcharacters.viewmodel.MainViewModel
-import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
-private lateinit var binding: FragmentMainBinding
-private lateinit var adapter: CharacterAdapter
-private lateinit var viewModel: MainViewModel
 private var itemsSearches = 0
 private val searchLimit = 20
 
 class MainFragment : Fragment(), OnClick {
+
+    private lateinit var binding: FragmentMainBinding
+    private lateinit var adapter: CharacterAdapter
+    private val viewModel: MainViewModel by viewModel()
+
+    companion object {
+//        fun newInstance() = MainFragment()
+        val KEY = "marvelResult"
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,12 +44,9 @@ class MainFragment : Fragment(), OnClick {
             container,
             false
         )
-        viewModel = getViewModel()
 
         return binding.root
     }
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,7 +69,6 @@ class MainFragment : Fragment(), OnClick {
                 adapter.updateList(result)
             }
         }
-
     }
 
     private fun setAdapter() {
@@ -73,9 +78,9 @@ class MainFragment : Fragment(), OnClick {
         binding.recyclerView.layoutManager = GridLayoutManager(requireActivity(), columns)
     }
 
-    override fun click(result: Result?) {
+    override fun click(marvelResult: MarvelResult?) {
         val bundle = Bundle()
-        bundle.putParcelable("result", result)
+        bundle.putParcelable(KEY, marvelResult)
 
         requireActivity().supportFragmentManager.beginTransaction()
             .add(

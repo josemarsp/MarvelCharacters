@@ -4,20 +4,22 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import br.com.josef.marvelcharacters.model.dataclass.BaseRequest
-import br.com.josef.marvelcharacters.model.dataclass.Result
+import br.com.josef.marvelcharacters.model.dataclass.MarvelResult
 import br.com.josef.marvelcharacters.repository.Repository
 import br.com.josef.marvelcharacters.utils.PUBLIC_KEY
 import br.com.josef.marvelcharacters.utils.md5
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
-    private val repository = Repository()
-    private val _listaComics = MutableLiveData<MutableList<Result>>()
-    private val _listaPersonagens = MutableLiveData<MutableList<Result>>()
-    private val _listaSeries = MutableLiveData<MutableList<Result>>()
+class MainViewModel(private val repository: Repository) : ViewModel() {
+//    private val repository = Repository()
+    private val _listaComics = MutableLiveData<MutableList<MarvelResult>>()
+    private val _listaPersonagens = MutableLiveData<MutableList<MarvelResult>>()
+    private val _listaSeries = MutableLiveData<MutableList<MarvelResult>>()
     private val loading = MutableLiveData<Boolean>()
     private val disposable = CompositeDisposable()
 
@@ -25,17 +27,17 @@ class MainViewModel : ViewModel() {
 
     var hash = md5(timestamp)
 
-    val listaComics: LiveData<MutableList<Result>>
+    val listaComics: LiveData<MutableList<MarvelResult>>
         get() {
             return _listaComics
         }
 
-    val listaPersonagens: LiveData<MutableList<Result>>
+    val listaPersonagens: LiveData<MutableList<MarvelResult>>
         get() {
         return _listaPersonagens
     }
 
-    val listaSeries: LiveData<MutableList<Result>>
+    val listaSeries: LiveData<MutableList<MarvelResult>>
         get() {
             return _listaSeries
         }
@@ -43,6 +45,22 @@ class MainViewModel : ViewModel() {
     fun getLoading(): LiveData<Boolean> {
         return loading
     }
+
+    val _favoriteCharacters: LiveData<MutableList<MarvelResult>> = repository.favoriteCharacters
+    val favoriteCharacters: LiveData<MutableList<MarvelResult>>
+        get() = _favoriteCharacters
+
+    fun saveFavorite(favorite: MarvelResult){
+        viewModelScope.launch {
+            repository.insertFavorite(favorite)
+        }
+    }
+//    fun save(newPassword: String) {
+//        viewModelScope.launch {
+//            passwordRepository.save(newPassword)
+//        }
+//    }
+//
 
 //    val allComics: Unit
 //        get() {

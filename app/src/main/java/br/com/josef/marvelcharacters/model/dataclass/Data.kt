@@ -7,7 +7,7 @@ data class Data(
 
     val offset: Long,
 
-    val results: List<Result>,
+    val results: List<MarvelResult>,
 
     val total: Long
 )

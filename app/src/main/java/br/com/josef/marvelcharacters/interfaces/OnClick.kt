@@ -1,7 +1,7 @@
 package br.com.josef.marvelcharacters.interfaces
 
-import br.com.josef.marvelcharacters.model.dataclass.Result
+import br.com.josef.marvelcharacters.model.dataclass.MarvelResult
 
 interface OnClick {
-    fun click(result: Result?)
+    fun click(marvelResult: MarvelResult?)
 }

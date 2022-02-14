@@ -3,7 +3,7 @@ package br.com.josef.marvelcharacters.utils
 import android.content.Context
 import android.net.Uri
 import android.util.DisplayMetrics
-import br.com.josef.marvelcharacters.model.dataclass.Result
+import br.com.josef.marvelcharacters.model.dataclass.MarvelResult
 import okhttp3.internal.and
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -49,12 +49,12 @@ fun isTablet(context: Context): Boolean {
     return i >= 600
 }
 
-fun urlForPortraitImages(result: Result): Uri {
-    val imagem = result.thumbnail.path + "/portrait_uncanny." + result.thumbnail.extension
+fun urlForPortraitImages(marvelResult: MarvelResult): Uri {
+    val imagem = marvelResult.thumbnail.path + "/portrait_uncanny." + marvelResult.thumbnail.extension
     return Uri.parse(imagem.replace("http:", "https:"))
 }
 
-fun urlForBasetImages(result: Result): Uri {
-    val imagem = result.thumbnail.path + "." + result.thumbnail.extension
+fun urlForBasetImages(marvelResult: MarvelResult): Uri {
+    val imagem = marvelResult.thumbnail.path + "." + marvelResult.thumbnail.extension
     return Uri.parse(imagem.replace("http:", "https:"))
 }

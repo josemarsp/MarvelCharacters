@@ -41,6 +41,13 @@ class MainActivity : AppCompatActivity(){
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         when (item.itemId) {
             R.id.action_favorite -> {
+                this.supportFragmentManager.beginTransaction()
+                    .add(
+                        R.id.fc_fragment,
+                        FavoriteFragment::class.java, null
+                    )
+                    .addToBackStack(null)
+                    .commit()
                 true
             }
 
@@ -65,5 +72,6 @@ class MainActivity : AppCompatActivity(){
             supportFragmentManager.popBackStack()
         }
     }
+
 
 }

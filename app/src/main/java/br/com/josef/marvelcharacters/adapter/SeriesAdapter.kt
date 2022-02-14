@@ -1,7 +1,6 @@
 package br.com.josef.marvelcharacters.adapter
 
 import android.content.Context
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,15 +8,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.josef.marvelcharacters.R
-import br.com.josef.marvelcharacters.interfaces.OnClick
-import br.com.josef.marvelcharacters.model.dataclass.Result
+import br.com.josef.marvelcharacters.model.dataclass.MarvelResult
 import br.com.josef.marvelcharacters.utils.ExpandedImageHelper
 import br.com.josef.marvelcharacters.utils.urlForBasetImages
 import br.com.josef.marvelcharacters.utils.urlForPortraitImages
 import com.bumptech.glide.Glide
 
 class SeriesAdapter(
-    private var comicsList: MutableList<Result>,
+    private var comicsList: MutableList<MarvelResult>,
 //    private val listener: OnClick,
     private val context: Context
 ) : RecyclerView.Adapter<SeriesAdapter.ViewHolder>() {
@@ -40,7 +38,7 @@ class SeriesAdapter(
         return comicsList.size
     }
 
-//    fun atualizaLista(novaLista: MutableList<Result>) {
+//    fun atualizaLista(novaLista: MutableList<MarvelResult>) {
 //        if (comicsList.isEmpty()) {
 //            comicsList = novaLista
 //        } else {
@@ -53,10 +51,10 @@ class SeriesAdapter(
         private val imageComic: ImageView
         private val txtTitulo: TextView
 
-        fun onBind(result: Result) {
-            txtTitulo.text = result.title
+        fun onBind(marvelResult: MarvelResult) {
+            txtTitulo.text = marvelResult.title
             Glide.with(context)
-                .load(urlForPortraitImages(result))
+                .load(urlForPortraitImages(marvelResult))
                 .dontTransform()
                 .into(imageComic)
         }
